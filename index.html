@@ -3,7 +3,32 @@
   <head>
     <title>Hurry & Triz</title>
     <style>
-      body {
+      #click-me-page {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      #click-me-page h1 {
+        font-size: 4em;
+        font-family: Arial, sans-serif;
+        cursor: pointer;
+      }
+
+      #main-page {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         background-color: #2d2d2d;
         color: white;
         font-family: Arial, sans-serif;
@@ -11,8 +36,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: 100vh;
-        margin: 0;
+        z-index: 0;
       }
 
       #text-container {
@@ -38,45 +62,62 @@
     </style>
   </head>
   <body>
-    <div id="video-container">
-      <video autoplay muted loop>
-        <source src="myVideo.mp4" type="video/mp4">
-      </video>
+    <div id="click-me-page">
+        <h1 onclick="showMainPage()" style="font-size: 2em; text-transform: lowercase;">click me</h1>
+      </div>
+      
+
+    <div id="main-page">
+      <div id="video-container">
+        <video autoplay muted loop>
+          <source src="myVideo.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div id="text-container"></div>
+      <div id="subtext-container">hurry & triz</div>
+      <audio src="myAudio.mp3" id="audio"></audio>
+      <script>
+        var text = "The Top Floor Discordians.";
+        var index = 0;
+        var audio = document.getElementById("audio");
+
+        function type() {
+          var container = document.getElementById("text-container");
+          container.innerHTML += text.charAt(index);
+          index++;
+          if (index > text.length) {
+            setTimeout(deleteText, 1000);
+          } else {
+            setTimeout(type, 100);
+          }
+        }
+
+        function deleteText() {
+          var container = document.getElementById("text-container");
+          container.innerHTML = container.innerHTML.slice(0, -1);
+          index--;
+          if (index >= 0) {
+            setTimeout(deleteText, 50);
+          } else {
+            setTimeout(type, 1000);
+          }
+        }
+
+        function showMainPage() {
+          var clickMePage = document.getElementById("click-me-page");
+          var mainPage = document.getElementById("main-page");
+
+          // Show the main page and hide the click me page
+          mainPage.style.display = "flex";
+          clickMePage.style.display = "none";
+
+          // Play audio when animation starts
+          audio.play();
+
+          // Start typing animation
+          type();
+        }
+      </script>
     </div>
-    <div id="text-container"></div>
-    <div id="subtext-container">hurry & triz</div>
-    <audio src="myAudio.mp3" id="audio" autoplay></audio>
-    <script>
-      var text = "The Top Floor Discordians.";
-      var index = 0;
-      var audio = document.getElementById("audio");
-
-      function type() {
-        var container = document.getElementById("text-container");
-        container.innerHTML += text.charAt(index);
-        index++;
-        if (index > text.length) {
-          setTimeout(deleteText, 1000);
-        } else {
-          setTimeout(type, 100);
-        }
-      }
-
-      function deleteText() {
-        var container = document.getElementById("text-container");
-        container.innerHTML = container.innerHTML.slice(0, -1);
-        index--;
-        if (index >= 0) {
-          setTimeout(deleteText, 50);
-        } else {
-          setTimeout(type, 1000);
-        }
-      }
-
-      type();
-
-      // Play audio when animation starts
-      audio.play();
-    </script>
   </body>
 </html>
