@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Text Animation</title>
+    <style>
+      body {
+        background-color: #2d2d2d;
+        color: white;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      #text-container {
+        text-align: center;
+        font-weight: bold;
+        z-index: 1;
+      }
+
+      #video-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        filter: blur(10px);
+      }
+
+      #subtext-container {
+        margin-top: 20px;
+        font-size: 14px;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="video-container">
+      <video autoplay muted loop>
+        <source src="myVideo.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div id="text-container"></div>
+    <div id="subtext-container">hurry & triz</div>
+    <script>
+      var text = "The Top Floor Discordians.";
+      var index = 0;
+
+      function type() {
+        var container = document.getElementById("text-container");
+        container.innerHTML += text.charAt(index);
+        index++;
+        if (index > text.length) {
+          setTimeout(deleteText, 1000);
+        } else {
+          setTimeout(type, 100);
+        }
+      }
+
+      function deleteText() {
+        var container = document.getElementById("text-container");
+        container.innerHTML = container.innerHTML.slice(0, -1);
+        index--;
+        if (index >= 0) {
+          setTimeout(deleteText, 50);
+        } else {
+          setTimeout(type, 1000);
+        }
+      }
+
+      type();
+    </script>
+  </body>
+</html>
