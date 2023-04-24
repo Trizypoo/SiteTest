@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Text Animation</title>
+    <title>Hurry & Triz</title>
     <style>
       body {
         background-color: #2d2d2d;
         color: white;
         font-family: Arial, sans-serif;
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
         height: 100vh;
@@ -28,12 +27,6 @@
         z-index: -1;
         filter: blur(10px);
       }
-
-      #subtext-container {
-        margin-top: 20px;
-        font-size: 14px;
-        font-style: italic;
-      }
     </style>
   </head>
   <body>
@@ -43,10 +36,11 @@
       </video>
     </div>
     <div id="text-container"></div>
-    <div id="subtext-container">hurry & triz</div>
+    <audio src="myAudio.mp3" id="audio"></audio>
     <script>
       var text = "The Top Floor Discordians.";
       var index = 0;
+      var audio = document.getElementById("audio");
 
       function type() {
         var container = document.getElementById("text-container");
@@ -71,6 +65,9 @@
       }
 
       type();
+
+      // Play audio when animation starts
+      audio.play();
     </script>
   </body>
 </html>
